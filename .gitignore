@@ -1,0 +1,10 @@
+.venv/
+venv
+
+.env
+
+docker/nginx/config/nginx.conf
+docker/nginx/log/
+docker/postgresql/data/
+
+__pycache__
