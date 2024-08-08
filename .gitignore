@@ -8,3 +8,5 @@ docker/nginx/log/
 docker/postgresql/data/
 
 __pycache__
+
+alembic.ini

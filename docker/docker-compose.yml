@@ -16,6 +16,7 @@ services:
       - ./.env
     depends_on:
       - auth_server
+      - task_server
     restart: always
 
   # Database
@@ -33,6 +34,25 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    restart: always
+
+  alembic:
+    build:
+     context: ../
+     dockerfile: docker/alembic/Dockerfile
+    volumes:
+      - ../alembic:/alembic
+      - ../alembic.ini:/alembic.ini
+    environment:
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    depends_on:
+      - postgresql
+    command: tail -F anything
     restart: always
 
   # Server
