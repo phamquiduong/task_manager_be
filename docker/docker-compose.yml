@@ -1,6 +1,5 @@
-version: "2.3"
 services:
-  # Nginx server
+  # Proxy server
   nginx:
     build:
       context: .
@@ -19,6 +18,7 @@ services:
       - auth_server
     restart: always
 
+  # Database
   postgresql:
     build:
       context: .
@@ -35,17 +35,31 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     restart: always
 
-  # Auth application
+  # Server
   auth_server:
     build:
       context: ../
       dockerfile: docker/fastapi/auth/Dockerfile
     expose:
-      - ${AUTH_SERVER}
+      - ${AUTH_SERVER_PORT}
     volumes:
       - ../src:/src                   # Source code
     command: bash -c "cd src &&
-                      uvicorn auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER} --reload"
+                      uvicorn auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER_PORT} --reload"
+    depends_on:
+      - postgresql
+    restart: always
+
+  task_server:
+    build:
+      context: ../
+      dockerfile: docker/fastapi/task/Dockerfile
+    expose:
+      - ${TASK_SERVER_PORT}
+    volumes:
+      - ../src:/src                   # Source code
+    command: bash -c "cd src &&
+                      uvicorn task.main:app --host 0.0.0.0 --port ${TASK_SERVER_PORT} --reload"
     depends_on:
       - postgresql
     restart: always

@@ -40,7 +40,11 @@ http {
     index   index.html index.htm;
 
     upstream auth_server {
-        server auth_server:${AUTH_SERVER} fail_timeout=0;
+        server auth_server:${AUTH_SERVER_PORT} fail_timeout=0;
+    }
+
+    upstream task_server {
+        server task_server:${TASK_SERVER_PORT} fail_timeout=0;
     }
 
     server {
@@ -76,6 +80,14 @@ http {
             proxy_pass http://auth_server;
         }
 
+        location @proxy_to_task_server {
+            proxy_set_header X-Forwarded-For ${DOLLAR}proxy_add_x_forwarded_for;
+            proxy_set_header Host ${DOLLAR}http_host;
+            proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+            proxy_redirect off;
+            proxy_pass http://task_server;
+        }
+
         location /static/ {
             alias /opt/apps/static/;
         }
@@ -88,6 +100,10 @@ http {
 
         location /auth {
           try_files ${DOLLAR}uri @proxy_to_auth_server;
+        }
+
+        location / {
+          try_files ${DOLLAR}uri @proxy_to_task_server;
         }
 
         error_page 404 /404.html;
