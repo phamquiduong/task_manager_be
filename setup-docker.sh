@@ -23,7 +23,7 @@ echo "Changed directory to 'docker'"
 
 # Step 4: Down docker-compose
 docker-compose down
-echo "Down docker-compose"
+echo "The Docker containers are down."
 
 # Step 5: Copy .env.example to .env if it doesn't exist (inside docker directory)
 copy_if_not_exists ".env.example" ".env"
@@ -42,4 +42,4 @@ echo "Docker containers are up and running"
 
 # Step 8: Run migrate
 docker-compose exec alembic alembic upgrade head
-echo "Run migrate"
+echo "All migrations have been applied."
