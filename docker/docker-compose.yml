@@ -65,7 +65,7 @@ services:
     volumes:
       - ../src:/src                   # Source code
     command: bash -c "cd src &&
-                      uvicorn auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER_PORT} --reload"
+                      uvicorn app_auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER_PORT} --reload"
     depends_on:
       - postgresql
     restart: always
@@ -79,7 +79,7 @@ services:
     volumes:
       - ../src:/src                   # Source code
     command: bash -c "cd src &&
-                      uvicorn task.main:app --host 0.0.0.0 --port ${TASK_SERVER_PORT} --reload"
+                      uvicorn app_task.main:app --host 0.0.0.0 --port ${TASK_SERVER_PORT} --reload"
     depends_on:
       - postgresql
     restart: always
