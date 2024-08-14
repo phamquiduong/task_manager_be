@@ -17,7 +17,7 @@ cd ..
 
 
 # Create project enviroment file if it doesn't exist
-cd env || { echo "Failed to change directory to 'env'"; exit 1; }
+cd environment || { echo "Failed to change directory to 'environment'"; exit 1; }
 copy_if_not_exists "auth.env.example" "auth.env"
 cd ..
 
