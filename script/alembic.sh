@@ -6,7 +6,7 @@ echo "2. Upgrade migration"
 echo "3. Downgrade migration"
 read -p "Enter your choice (1/2/3): " choice
 
-cd docker/
+cd ../docker/
 
 case $choice in
     1)

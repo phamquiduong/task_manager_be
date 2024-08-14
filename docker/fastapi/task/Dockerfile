@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir --upgrade pip
 
 
 # Install python packet
-COPY requirements-task.txt /
-RUN pip install -r requirements-task.txt
+COPY task.requirements.txt /
+RUN pip install -r task.requirements.txt

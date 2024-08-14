@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from database import get_session
+from auth.databases.dependency import get_session
 
 auth_router = APIRouter(prefix='/auth')
 

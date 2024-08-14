@@ -12,10 +12,12 @@ copy_if_not_exists() {
 }
 
 # Step 1: Copy alembic.ini.example to alembic.ini if it doesn't exist
+cd migration/
 copy_if_not_exists "alembic.ini.example" "alembic.ini"
+cd ..
 
 # Step 2: Copy .env.example to .env if it doesn't exist
-copy_if_not_exists ".env.example" ".env"
+copy_if_not_exists "auth.env.example" "auth.env"
 
 # Step 3: Change directory to docker
 cd docker || { echo "Failed to change directory to 'docker'"; exit 1; }
@@ -39,7 +41,3 @@ fi
 # Step 7: Build and run Docker containers
 docker-compose up --build -d
 echo "Docker containers are up and running"
-
-# Step 8: Run migrate
-docker-compose exec alembic alembic upgrade head
-echo "All migrations have been applied."
