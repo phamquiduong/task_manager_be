@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir --upgrade pip
 
 
 # Install python packet
-COPY auth-requirements.txt /
-RUN pip install -r auth-requirements.txt
+COPY requirements-auth.txt /
+RUN pip install -r requirements-auth.txt
