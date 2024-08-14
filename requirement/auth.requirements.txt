@@ -1,0 +1,10 @@
+# Server
+uvicorn
+fastapi
+
+# Environment
+python-dotenv
+
+# Database
+psycopg2
+sqlalchemy

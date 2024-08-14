@@ -64,7 +64,7 @@ services:
       - ${AUTH_SERVER_PORT}
     volumes:
       - ../src:/src                   # Source code
-      - ../auth.env:/auth.env
+      - ../env/auth.env:/env/auth.env
     command: bash -c "cd src &&
                       uvicorn auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER_PORT} --reload"
     depends_on:

@@ -1,11 +1,12 @@
-.venv/
-
-*.env
-
+# Docker
 docker/nginx/config/nginx.conf
 docker/nginx/log/
 docker/postgresql/data/
 
-__pycache__
-
+# Migration
 migration/alembic.ini
+
+# Python and environment
+__pycache__
+.venv/
+*.env

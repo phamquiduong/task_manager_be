@@ -7,4 +7,5 @@ RUN pip install --no-cache-dir --upgrade pip
 
 
 # Install python packet
-RUN pip install alembic psycopg2
+COPY requirement/migration.requirements.txt /
+RUN pip install -r migration.requirements.txt

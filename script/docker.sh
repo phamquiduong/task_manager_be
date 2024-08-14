@@ -17,8 +17,9 @@ cd ..
 
 
 # Create project enviroment file if it doesn't exist
+cd env || { echo "Failed to change directory to 'env'"; exit 1; }
 copy_if_not_exists "auth.env.example" "auth.env"
-
+cd ..
 
 # Copy alembic.ini.example to alembic.ini if it doesn't exist
 cd migration || { echo "Failed to change directory to 'migration'"; exit 1; }
