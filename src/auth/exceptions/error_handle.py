@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 
-from auth.exception import APIException
+from auth.exceptions import APIException
 from auth.schemas.base_response import FieldErrorSchema, ResponseFailBaseSchema
 
 

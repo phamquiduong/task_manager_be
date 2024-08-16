@@ -76,14 +76,19 @@ task_manager_be
 │  └─ task.requirements.txt
 ├─ script
 │  ├─ alembic.sh                 # Alembic migrate script
-│  └─ docker.sh                  # Build and start server by docker-compose script
+│  ├─ docker.sh                  # Build and start server by docker-compose script
+│  └─ rebuild.sh                 # Rebuild docker-compose (Support install new Python packages)
 └─ src
    ├─ auth
    │  ├─ main.py                 # Authentication application
    │  ├─ constants
    │  ├─ databases
+   │  ├─ exceptions
+   │  ├─ helpers
    │  ├─ models
-   │  └─ router
+   │  ├─ routers
+   │  ├─ schemas
+   │  └─ services
    └─ task
       └─ main.py                 # Task application
 

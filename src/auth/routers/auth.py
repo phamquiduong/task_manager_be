@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from auth.constants.message import UserMessage
 from auth.databases.dependency import get_session
-from auth.exception import APIException
+from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
 from auth.schemas.models.users import UserInSchema, UserOutSchema
 from auth.services.user import UserService

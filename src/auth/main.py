@@ -10,8 +10,8 @@ def create_app():
     # pylint: disable=C0415
     from fastapi import FastAPI
 
-    from auth.exception.error_handle import handle_error
-    from auth.router.auth import auth_router
+    from auth.exceptions.error_handle import handle_error
+    from auth.routers.auth import auth_router
 
     fastapi_app = FastAPI(
         title="Task Manager Auth Application",

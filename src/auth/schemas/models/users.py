@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 
-from auth.helper.password import PasswordHelper
+from auth.helpers.password import PasswordHelper
 
 _password_helper = PasswordHelper()
 
