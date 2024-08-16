@@ -11,3 +11,6 @@ sqlalchemy
 
 # Pydantic validatation
 pydantic[email]
+
+# Bcrypt
+passlib[bcrypt]

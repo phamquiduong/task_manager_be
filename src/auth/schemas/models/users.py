@@ -1,5 +1,9 @@
 from pydantic import BaseModel, EmailStr
 
+from auth.helper.password import PasswordHelper
+
+_password_helper = PasswordHelper()
+
 
 class UserBaseSchema(BaseModel):
     email: EmailStr
@@ -18,3 +22,5 @@ class UserInSchema(UserBaseSchema):
     def model_post_init(self, __context):
         if not self.full_name:
             self.full_name = self.email.rsplit("@", 1)[0]
+
+        self.password = _password_helper.get_password_hash(self.password)
