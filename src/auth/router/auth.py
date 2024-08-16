@@ -11,9 +11,9 @@ from auth.services.user import UserService
 auth_router = APIRouter(prefix="/auth")
 
 
-@auth_router.get("/health-check")
+@auth_router.get("/health-check", status_code=status.HTTP_204_NO_CONTENT)
 def health_check():
-    return {}
+    pass
 
 
 @auth_router.post("/register", response_model=RegisterResponseSchema, status_code=status.HTTP_201_CREATED)
