@@ -1,10 +1,14 @@
+from typing import Callable
+
 from sqlalchemy import BigInteger, Boolean, Column, DateTime, String, func
 
 from auth.databases import Base
 
+func: Callable
 
-class User(Base):
-    __tablename__ = 'users'
+
+class UserModel(Base):
+    __tablename__ = "users"
 
     id = Column(BigInteger, primary_key=True, autoincrement=True)
 

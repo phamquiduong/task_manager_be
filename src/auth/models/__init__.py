@@ -1,2 +1,7 @@
-from auth.models.user import User
-from auth.models.user_session import UserSession
+from auth.models.user import UserModel
+from auth.models.user_session import UserSessionModel
+
+__all__ = [
+    "UserModel",
+    "UserSessionModel",
+]

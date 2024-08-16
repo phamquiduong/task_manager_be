@@ -8,3 +8,6 @@ python-dotenv
 # Database
 psycopg2
 sqlalchemy
+
+# Pydantic validatation
+pydantic[email]
