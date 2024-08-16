@@ -7,13 +7,13 @@ from auth.constants.message import Message
 
 
 class ResponseSucessBaseSchema(BaseModel):
-    status: int = status.HTTP_200_OK
+    status_code: int = status.HTTP_200_OK
     message: str = Message.RESPONSE_200
     data: Any
 
 
 class FieldErrorSchema(BaseModel):
-    field_name: str
+    name: str
     message: str | list[str]
 
     def model_post_init(self, __context):
@@ -22,6 +22,6 @@ class FieldErrorSchema(BaseModel):
 
 
 class ResponseFailBaseSchema(BaseModel):
-    status: int = status.HTTP_400_BAD_REQUEST
+    status_code: int = status.HTTP_400_BAD_REQUEST
     message: str = Message.RESPONSE_400
-    error_field: list[FieldErrorSchema]
+    fields: list[FieldErrorSchema] | None = None

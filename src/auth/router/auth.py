@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Body, Depends, HTTPException, status
+from fastapi import APIRouter, Body, Depends, status
 from sqlalchemy.orm import Session
 
 from auth.constants.message import UserMessage
 from auth.databases.dependency import get_session
+from auth.exception import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
 from auth.schemas.models.users import UserInSchema, UserOutSchema
 from auth.services.user import UserService
@@ -23,10 +24,17 @@ def register(
     user_service = UserService(session=session)
 
     if user_service.is_exists_user_email(email=register_request.email):
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=UserMessage.USER_WITH_EMAIL_ALREADY_EXIST)
+        raise APIException(
+            status_code=status.HTTP_409_CONFLICT,
+            message=UserMessage.USER_ALREADY_EXIST,
+            fields={"email": UserMessage.EMAIL_ALREADY_EXIST},
+        )
 
     user_in = UserInSchema(email=register_request.email, password=register_request.password)
-    user = user_service.create_user(user_in=user_in)
-    user_out = UserOutSchema(**user.__dict__)
 
+    user = user_service.create_user(user_in=user_in)
+    session.commit()
+    session.refresh(user)
+
+    user_out = UserOutSchema(**user.__dict__)
     return RegisterResponseSchema(data=user_out)

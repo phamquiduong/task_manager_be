@@ -18,9 +18,10 @@ class RegisterRequestSchema(BaseModel):
     def validate_password(cls, password: str):
         if not re.match(USER_PASSWORD_REGEX, password):
             raise ValueError(UserMessage.PASSWORD_REGEX_NOT_MATCH)
+        return password
 
 
 class RegisterResponseSchema(ResponseSucessBaseSchema):
-    status: int = status.HTTP_201_CREATED
+    status_code: int = status.HTTP_201_CREATED
     message: str = UserMessage.CREATE_USER_SUCCESS
     data: UserOutSchema
