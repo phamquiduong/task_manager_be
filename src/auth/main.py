@@ -14,9 +14,9 @@ def create_app():
     from auth.routers.auth import auth_router
 
     fastapi_app = FastAPI(
-        title="Task Manager Auth Application",
+        title="Task Manager Authentication Application",
         docs_url="/auth",
-        openapi_url="/auth/openapi.json",
+        openapi_url="/auth/openapi",
     )
 
     fastapi_app.include_router(auth_router)
