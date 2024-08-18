@@ -21,6 +21,8 @@ def handle_error(app: FastAPI) -> FastAPI:
         for pydantic_error in request_validation_error.errors():
             loc, msg = pydantic_error["loc"], pydantic_error["msg"]
 
+            msg = msg.replace("Value error, ", "")
+
             loc = [
                 field_name
                 for field_name in loc
