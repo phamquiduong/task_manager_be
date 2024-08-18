@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request, status
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from auth.exceptions import APIException
@@ -12,6 +13,24 @@ def handle_error(app: FastAPI) -> FastAPI:
             content=ResponseFailBaseSchema(status_code=http_exc.status_code, message=http_exc.detail).model_dump(),
             status_code=http_exc.status_code,
         )
+
+    @app.exception_handler(RequestValidationError)
+    async def request_validation_error_handler(_request: Request, request_validation_error: RequestValidationError):
+        error_fields = {}
+
+        for pydantic_error in request_validation_error.errors():
+            loc, msg = pydantic_error["loc"], pydantic_error["msg"]
+
+            loc = [
+                field_name
+                for field_name in loc
+                if field_name not in ("body", "query", "path") and isinstance(field_name, str)
+            ] or ("__all__",)
+
+            for field in loc:
+                error_fields[field] = msg
+
+        raise APIException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, fields=error_fields)
 
     @app.exception_handler(APIException)
     async def api_exception_handler(_request: Request, api_exc: APIException):
