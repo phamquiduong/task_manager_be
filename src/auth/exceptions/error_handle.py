@@ -22,6 +22,7 @@ def handle_error(app: FastAPI) -> FastAPI:
             loc, msg = pydantic_error["loc"], pydantic_error["msg"]
 
             msg = msg.replace("Value error, ", "")
+            msg = msg.capitalize()
 
             loc = [
                 field_name
