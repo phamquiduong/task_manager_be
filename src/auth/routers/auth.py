@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body, Depends, status
 from sqlalchemy.orm import Session
 
-from auth.constants.message import UserMessage
+from auth.constants.message import Message, UserMessage
 from auth.databases.dependency import get_session
 from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
@@ -36,7 +36,7 @@ def register(
     if user_service.is_exists_user_email(email=register_request.email):
         raise APIException(
             status_code=status.HTTP_409_CONFLICT,
-            message=UserMessage.USER_ALREADY_EXIST,
+            message=Message.RESPONSE_409,
             fields={"email": UserMessage.EMAIL_ALREADY_EXIST},
         )
 

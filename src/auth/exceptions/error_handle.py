@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from auth.constants.message import Message
 from auth.exceptions import APIException
 from auth.schemas.base_response import FieldErrorSchema, ResponseFailSchema
 
@@ -33,7 +34,9 @@ def handle_error(app: FastAPI) -> FastAPI:
             for field in loc:
                 error_fields[field] = msg
 
-        raise APIException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, fields=error_fields)
+        raise APIException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, message=Message.RESPONSE_422, fields=error_fields
+        )
 
     @app.exception_handler(APIException)
     async def api_exception_handler(_request: Request, api_exc: APIException):
