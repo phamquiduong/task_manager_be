@@ -63,7 +63,7 @@ services:
     expose:
       - ${AUTH_SERVER_PORT}
     volumes:
-      - ../src:/src                   # Source code
+      - ../src/auth:/src/auth                     # Source code
       - ../environment/auth.env:/environment/auth.env
     command: bash -c "cd src &&
                       uvicorn auth.main:app --host 0.0.0.0 --port ${AUTH_SERVER_PORT} --reload"
@@ -78,7 +78,7 @@ services:
     expose:
       - ${TASK_SERVER_PORT}
     volumes:
-      - ../src:/src                   # Source code
+      - ../src/task:/src/task                     # Source code
     command: bash -c "cd src &&
                       uvicorn task.main:app --host 0.0.0.0 --port ${TASK_SERVER_PORT} --reload"
     depends_on:

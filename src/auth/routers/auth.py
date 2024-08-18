@@ -6,9 +6,10 @@ from auth.databases.dependency import get_session
 from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
 from auth.schemas.models.users import UserInSchema, UserOutSchema
+from auth.schemas.response.error import Response409, Response422, Response500
 from auth.services.user import UserService
 
-auth_router = APIRouter(prefix="/auth")
+auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @auth_router.get("/health-check", status_code=status.HTTP_204_NO_CONTENT)
@@ -16,7 +17,16 @@ def health_check():
     pass
 
 
-@auth_router.post("/register", response_model=RegisterResponseSchema, status_code=status.HTTP_201_CREATED)
+@auth_router.post(
+    "/register",
+    response_model=RegisterResponseSchema,
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        status.HTTP_409_CONFLICT: {"model": Response409},
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": Response422},
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": Response500},
+    },
+)
 def register(
     register_request: RegisterRequestSchema = Body(...),
     session: Session = Depends(get_session),

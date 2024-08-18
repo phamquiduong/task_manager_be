@@ -22,6 +22,9 @@ class FieldErrorSchema(BaseModel):
 
 
 class ResponseFailBaseSchema(BaseModel):
-    status_code: int = status.HTTP_400_BAD_REQUEST
-    message: str = Message.RESPONSE_400
+    status_code: int
+    message: str
+
+
+class ResponseFailSchema(ResponseFailBaseSchema):
     fields: list[FieldErrorSchema] | None = None
