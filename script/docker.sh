@@ -30,10 +30,6 @@ cd ..
 # Change directory to docker
 cd docker || { echo "Failed to change directory to 'docker'"; exit 1; }
 
-# Down docker-compose
-docker-compose down
-echo "The Docker containers are down."
-
 # Create docker-compose enviroment file if it doesn't exist
 copy_if_not_exists ".env.example" ".env"
 
@@ -44,6 +40,10 @@ if ! docker network ls | grep -q "task_manager_be_network"; then
 else
     echo "Docker network 'task_manager_be_network' already exists, skipping"
 fi
+
+# Down docker-compose
+docker-compose down
+echo "The Docker containers are down."
 
 # Build and run Docker containers
 docker-compose up --build -d
