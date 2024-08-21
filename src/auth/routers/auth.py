@@ -45,6 +45,7 @@ def register(
     user = user_service.create_user(user_in=user_in)
     session.commit()
     session.refresh(user)
+    session.close()
 
     user_out = UserOutSchema(**user.__dict__)
     return RegisterResponseSchema(data=user_out)
