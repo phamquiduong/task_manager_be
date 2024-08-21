@@ -9,6 +9,7 @@ services:
     volumes:
       - ./nginx/config:/etc/nginx     # Nginx configuration
       - ./nginx/log/:/var/log/nginx/  # Nginx log folder
+      - ./nginx/html:/var/www/html    # Static pages
     command: /tmp/run_nginx.sh        # Create nginx config file from config template
     environment:
       - DOLLAR=$$

@@ -102,16 +102,13 @@ http {
           try_files ${DOLLAR}uri @proxy_to_auth_server;
         }
 
-        location / {
+        location /manager {
           try_files ${DOLLAR}uri @proxy_to_task_server;
         }
 
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
+        location = / {
+            root /var/www/html;
+            try_files /index.html =200;
         }
     }
 }
