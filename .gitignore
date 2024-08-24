@@ -2,6 +2,7 @@
 docker/nginx/config/nginx.conf
 docker/nginx/log/
 docker/postgresql/data/
+docker/postgresql/pgadmin/
 
 # Migration
 migration/alembic.ini

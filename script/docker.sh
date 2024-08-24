@@ -11,24 +11,30 @@ copy_if_not_exists() {
     fi
 }
 
-
 # Change directory to the project root
 cd ..
 
-
 # Create project enviroment file if it doesn't exist
-cd environment || { echo "Failed to change directory to 'environment'"; exit 1; }
+cd environment || {
+    echo "Failed to change directory to 'environment'"
+    exit 1
+}
 copy_if_not_exists "auth.env.example" "auth.env"
 cd ..
 
 # Copy alembic.ini.example to alembic.ini if it doesn't exist
-cd migration || { echo "Failed to change directory to 'migration'"; exit 1; }
+cd migration || {
+    echo "Failed to change directory to 'migration'"
+    exit 1
+}
 copy_if_not_exists "alembic.ini.example" "alembic.ini"
 cd ..
 
-
 # Change directory to docker
-cd docker || { echo "Failed to change directory to 'docker'"; exit 1; }
+cd docker || {
+    echo "Failed to change directory to 'docker'"
+    exit 1
+}
 
 # Create docker-compose enviroment file if it doesn't exist
 copy_if_not_exists ".env.example" ".env"
