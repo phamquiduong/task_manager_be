@@ -49,8 +49,15 @@ fi
 
 # Down docker-compose
 docker-compose down
+docker-compose --profile nginx down
+docker-compose --profile postgresql down
+docker-compose --profile migration down
 echo "The Docker containers are down."
 
 # Build and run Docker containers
 docker-compose up --build -d
+docker-compose --profile nginx up --build -d
+docker-compose --profile postgresql up --build -d
+docker-compose --profile migration up --build -d
+
 echo "Docker containers are up and running. Open http://localhost to view docs"
