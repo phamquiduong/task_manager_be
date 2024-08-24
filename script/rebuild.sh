@@ -5,7 +5,6 @@ display_menu() {
     echo "Select the service you want to manage:"
     echo "1) auth_server"
     echo "2) task_server"
-    echo "0) All services"
 }
 
 # Function to manage the selected service
@@ -21,17 +20,8 @@ manage_service() {
     docker-compose up --build "$service" -d
 }
 
-# Function to manage all services
-manage_all_services() {
-    echo "Stopping all services..."
-    docker-compose down
-
-    echo "Rebuilding and starting all services..."
-    docker-compose up --build -d
-}
-
 # Change directory to docker
-cd ../docker/
+cd ../docker/ || exit
 
 # Main loop
 while true; do
@@ -45,10 +35,6 @@ while true; do
         ;;
     2)
         manage_service "task_server"
-        break
-        ;;
-    0)
-        manage_all_services
         break
         ;;
     *) echo "Invalid choice. Please try again." ;;
