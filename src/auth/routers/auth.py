@@ -8,7 +8,7 @@ from auth.databases.dependency import get_session
 from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
 from auth.schemas.models.users import UserInSchema, UserOutSchema
-from auth.schemas.response.error import Response400, Response409, Response422, Response500
+from auth.schemas.response.error import Response400, Response409, Response500
 from auth.services.user import UserService
 
 auth_router = APIRouter(prefix=AuthRoutes.PREFIX, tags=["Authentication"])
@@ -31,7 +31,7 @@ def health_check():
     responses={
         status.HTTP_400_BAD_REQUEST: {"model": Response400},
         status.HTTP_409_CONFLICT: {"model": Response409},
-        status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": Response422},
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": None},
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": Response500},
     },
 )
