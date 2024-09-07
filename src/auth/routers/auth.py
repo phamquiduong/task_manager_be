@@ -7,7 +7,7 @@ from auth.databases import check_database_connection
 from auth.databases.dependency import get_session
 from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
-from auth.schemas.models.users import UserInSchema, UserOutSchema
+from auth.schemas.models.users import UserInSchema
 from auth.schemas.response.error import Response400, Response409, Response500
 from auth.services.user import UserService
 
@@ -34,9 +34,11 @@ def health_check():
         status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": None},
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": Response500},
     },
+    description="The email must not already exist in the system <br>"
+    "The password must be 8-20 characters long and include at least one letter, one digit, and one special character.",
 )
 def register(
-    register_request: RegisterRequestSchema = Body(...),
+    register_request: RegisterRequestSchema = Body(),
     session: Session = Depends(get_session),
 ) -> RegisterResponseSchema:
     user_service = UserService(session=session)
@@ -51,8 +53,6 @@ def register(
 
     user_in = UserInSchema(email=register_request.email, password=register_request.password)
 
-    user = user_service.create_user(user_in=user_in)
-
-    user_out = UserOutSchema(**user.__dict__)
+    user_out = user_service.create_user(user_in=user_in)
 
     return RegisterResponseSchema(data=user_out)

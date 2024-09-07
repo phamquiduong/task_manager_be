@@ -1,7 +1,7 @@
 import re
 
 from fastapi import status
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 from auth.constants.message import UserMessage
 from auth.constants.regex import USER_PASSWORD_REGEX
@@ -19,6 +19,8 @@ class RegisterRequestSchema(BaseModel):
         if not re.match(USER_PASSWORD_REGEX, password):
             raise ValueError(UserMessage.PASSWORD_REGEX_NOT_MATCH)
         return password
+
+    model_config = ConfigDict(json_schema_extra={"example": {"email": "user@mail.com", "password": "Pass@123"}})
 
 
 class RegisterResponseSchema(ResponseSucessBaseSchema):
