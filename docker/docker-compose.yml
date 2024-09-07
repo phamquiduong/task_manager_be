@@ -29,8 +29,8 @@ services:
             dockerfile: postgresql/Dockerfile
         expose:
             - "5432"
-        ports:
-            - ${POSTGRES_PUBLIC_PORT}:5432
+        # ports:
+        #     - ${POSTGRES_PUBLIC_PORT}:5432
         volumes:
             - ./postgresql/data:/var/lib/postgresql/data
         environment:

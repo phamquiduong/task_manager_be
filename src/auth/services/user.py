@@ -8,14 +8,11 @@ class UserService:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def create_user(self, user_in: UserInSchema, auto_commit: bool = False) -> UserModel:
+    def create_user(self, user_in: UserInSchema) -> UserModel:
         user = UserModel(**user_in.model_dump())
 
         self.session.add(user)
-
-        if auto_commit is True:
-            self.session.commit()
-            self.session.refresh(user)
+        self.session.flush([user])
 
         return user
 
