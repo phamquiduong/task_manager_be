@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from auth.constants.message import Message, UserMessage
 from auth.constants.router import AuthRoutes
+from auth.databases import check_database_connection
 from auth.databases.dependency import get_session
 from auth.exceptions import APIException
 from auth.schemas.api.register import RegisterRequestSchema, RegisterResponseSchema
@@ -13,9 +14,15 @@ from auth.services.user import UserService
 auth_router = APIRouter(prefix=AuthRoutes.PREFIX, tags=["Authentication"])
 
 
-@auth_router.get("/health-check", status_code=status.HTTP_204_NO_CONTENT)
+@auth_router.get(
+    path=AuthRoutes.Path.HEALTH_CHECK.path,
+    status_code=status.HTTP_204_NO_CONTENT,
+    responses={
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": Response500},
+    },
+)
 def health_check():
-    pass
+    check_database_connection()
 
 
 @auth_router.post(

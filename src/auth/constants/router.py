@@ -6,7 +6,8 @@ class AuthRoutes:
     PREFIX = "/auth"
 
     class Path:
-        REGISTER = RouteSchema(path="/register", code=1)
+        HEALTH_CHECK = RouteSchema(path="/health-check", code=1)
+        REGISTER = RouteSchema(path="/register", code=2)
 
 
 all_auth_router = get_route_path(route_class=AuthRoutes)
