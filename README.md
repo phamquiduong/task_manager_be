@@ -1,95 +1,39 @@
-# Task manager BE
-
--   A website that manage tasks
+# Build and run server
 
 <br>
 
-## Development by
+### Install docker compose
 
--   [Python3](https://www.python.org/)
--   [FastAPI](https://fastapi.tiangolo.com/)
--   [PostgreSQL](https://www.postgresql.org/)
--   [Docker & Docker compose](https://www.docker.com/)
+Visit [docker desktop website](https://www.docker.com/products/docker-desktop/) download and install docker desktop
 
-<br>
-
-## Build and run server
-
--   Install [docker & docker-compose](https://www.docker.com/)
-
--   Change directory to `script` folder
-
-    ```bash
-    cd script/
-    ```
-
--   Change access permission for `docker.sh`
-
-    ```bash
-    chmod +x docker.sh
-    ```
-
--   Run script build and start server by docker-compose
-    ```bash
-    ./docker.sh
-    ```
+> Note: In MacOS, you can use [Obstack](https://www.obstack.org/) instead
 
 <br>
 
-## Project structure
+### Use scripts
 
-```bash
-task_manager_be
-├─ docker
-│  ├─ docker-compose.yml         # Docker compose file
-│  ├─ alembic
-│  │  └─ Dockerfile
-│  ├─ fastapi
-│  │  ├─ auth
-│  │  │  └─ Dockerfile
-│  │  └─ task
-│  │     └─ Dockerfile
-│  ├─ nginx
-│  │  ├─ Dockerfile
-│  │  ├─ config
-│  │  │  ├─ fastcgi_params
-│  │  │  ├─ mime.types
-│  │  ├─ log
-│  │  ├─ nginx-crontab
-│  │  ├─ nginx.conf.template     # Nginx config file
-│  │  └─ run_nginx.sh
-│  └─ postgresql
-│     ├─ Dockerfile
-│     └─ data
-├─ environment
-│  └─ auth.env.example           # Auth server environment
-├─ migration
-│  ├─ alembic
-│  │  ├─ README
-│  │  ├─ env.py
-│  │  ├─ script.py.mako
-│  │  └─ versions
-│  └─ alembic.ini.example        # Alembic config file
-├─ requirement
-│  ├─ auth.requirements.txt
-│  ├─ migration.requirements.txt
-│  └─ task.requirements.txt
-├─ script
-│  ├─ alembic.sh                 # Alembic migrate script
-│  ├─ docker.sh                  # Build and start server by docker-compose script
-│  └─ rebuild.sh                 # Rebuild docker-compose (Support install new Python packages)
-└─ src
-   ├─ auth
-   │  ├─ main.py                 # Authentication application
-   │  ├─ constants
-   │  ├─ databases
-   │  ├─ exceptions
-   │  ├─ helpers
-   │  ├─ models
-   │  ├─ routers
-   │  ├─ schemas
-   │  └─ services
-   └─ task
-      └─ main.py                 # Task application
+> Change directory to `script` folder
+>
+> ```bash
+> cd script/
+> ```
 
-```
+#### In here you can use some scripts
+
+- `alembic.sh` for migrate
+- `docker.sh` for build and run server
+- `rebuild.sh` for down and rebuild server
+
+#### Example use `docker.sh` script for build and run server
+
+> Update access permission for `docker.sh`
+>
+> ```bash
+> chmod +x docker.sh
+> ```
+
+> Run script
+>
+> ```bash
+> ./docker.sh
+> ```
