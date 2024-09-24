@@ -1,4 +1,4 @@
-from auth.databases import SessionLocal
+from auth.databases.config import SessionLocal
 
 
 def get_session():

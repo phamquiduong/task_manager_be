@@ -1,13 +1,10 @@
-from typing import Callable
-
-from sqlalchemy import BigInteger, Boolean, Column, DateTime, String, func
+from sqlalchemy import BigInteger, Boolean, Column, String
 
 from auth.databases import Base
+from auth.models.base import TimestampMixin
 
-func: Callable
 
-
-class UserModel(Base):
+class UserModel(Base, TimestampMixin):
     __tablename__ = "users"
 
     id = Column(BigInteger, primary_key=True, autoincrement=True)
@@ -18,6 +15,3 @@ class UserModel(Base):
     full_name = Column(String(255), nullable=False)
 
     is_active = Column(Boolean, default=False)
-
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)

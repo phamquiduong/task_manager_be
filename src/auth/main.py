@@ -1,27 +1,17 @@
-from dotenv import load_dotenv
+from fastapi import FastAPI
 
-from auth.constants import ENV_FILE_DIR
+from auth.exceptions.error_handle import handle_error
+from auth.routers import include_route
+from auth.utils.load_env import load_env_from_file
 
-if not load_dotenv(ENV_FILE_DIR):
-    raise FileNotFoundError("Could not find environment variable")
+app = FastAPI(
+    title="Task Manager Authentication Application",
+    docs_url="/auth",
+    openapi_url="/auth/openapi",
+)
 
+load_env_from_file()
 
-def create_app():
-    # pylint: disable=C0415
-    from fastapi import FastAPI
+handle_error(app)
 
-    from auth.exceptions.error_handle import handle_error
-    from auth.routers.auth import auth_router
-
-    fastapi_app = FastAPI(
-        title="Task Manager Authentication Application",
-        docs_url="/auth",
-        openapi_url="/auth/openapi",
-    )
-
-    fastapi_app.include_router(auth_router)
-
-    return handle_error(fastapi_app)
-
-
-app = create_app()
+include_route(app)
